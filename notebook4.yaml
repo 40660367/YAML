@@ -15,7 +15,7 @@ spec:
         - containerPort: 8080
       workingDir: '~'
       volumeMounts:
-        - name: githubRepo
+        - name: cache-volume
           readOnly: True
           mountPath: ~/shareData
       resources:
@@ -26,9 +26,8 @@ spec:
           cpu: 300m
           memory: 800Mi
   volumes:
-    - name: githubRepo
-      gitRepo:
-        repository: https://github.com/40660367/tensorflow_tutorials.git
+   - name: cache-volume
+     emptyDir: {}
 ---
 apiVersion: v1
 kind: Service
