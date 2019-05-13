@@ -8,3 +8,14 @@ spec:
     name: ubuntu
     command: [ "/bin/bash", "-c", "--" ]
     args: [ "while true; do sleep 30; done;" ]
+    resources:
+      requests:
+        cpus:
+          100m
+        memroy:
+          50mi
+      limits:
+        cpus:
+          200m
+        memroy:
+          80mi
