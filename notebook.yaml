@@ -20,8 +20,8 @@ spec:
       workingDir: '/~'
       volumeMounts:
         - name: githubRepo
-        - readOnly: True
-        - mountPath: /root/shareData
+          readOnly: True
+          mountPath: /root/shareData
       resources:
         requests:
           cpu: 100m
