@@ -12,10 +12,10 @@ spec:
       requests:
         cpu:
           100m
-        memroy:
+        memory:
           50Mi
       limits:
         cpu:
           200m
-        memroy:
+        memory:
           80Mi
