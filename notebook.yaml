@@ -10,18 +10,18 @@ spec:
     gitRepo:
       repository: https://github.com/40660367/python_3
   containers:
-    name: notebook
-    image: 40660367/myub18_notebook
-    imagePullPolicy: IfNotPresent
-    command: ['jupyter']
-    args: ['notebook','/usr/','--allow-root','--ip=0.0.0.0']
-    ports:
-      containerPort: 8080
-    workingDir: '/~'
-    volumeMounts:
-      name: githubRepo
-      readOnly: True
-      mountPath: /usr/shareData
+    - name: notebook
+      image: 40660367/myub18_notebook
+      imagePullPolicy: IfNotPresent
+      command: ['jupyter']
+      args: ['notebook','/usr/','--allow-root','--ip=0.0.0.0']
+      ports:
+        containerPort: 8080
+      workingDir: '/~'
+      volumeMounts:
+        name: githubRepo
+        readOnly: True
+        mountPath: /usr/shareData
 ---
 apiVersion: v1
 kind: Service
