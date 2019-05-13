@@ -1,0 +1,27 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  namespace: default
+  labels:
+    name: notebook-deploy
+    app: jupyternotebook
+spec:
+  template:
+    metadata:
+      namespace: default
+      labels:
+        name: notebook-deploy
+        app: jupyternotebook
+       spec:
+         serviceAccount: system:admin
+         serviceAccountName: admin
+         
+         containers:
+           - name: notebook
+             image: 40660367/myub18_notebook
+             magePullPolicy: IfNotPresent
+             resources: 
+               limits:
+                 cpu: 500m
+                 memory: 500Mi
+             
