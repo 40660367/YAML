@@ -24,7 +24,7 @@ spec:
           memory: 500Mi
         limits:
           cpu: 300m
-          memroy: 800Mi
+          memory: 800Mi
   volumes:
     - name: githubRepo
       gitRepo:
@@ -40,4 +40,6 @@ spec:
   type: NodePort
   selector:
     app: jupyter-notebook
-  port: 8080
+  ports: 
+    - port: 8080
+      targetport: 8080
