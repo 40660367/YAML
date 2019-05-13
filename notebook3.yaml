@@ -28,7 +28,7 @@ spec:
   volumes:
     - name: githubRepo
       gitRepo:
-        repository: https://github.com/40660367/python_3
+        repository: https://github.com/40660367/tensorflow_tutorials.git
 ---
 apiVersion: v1
 kind: Service
