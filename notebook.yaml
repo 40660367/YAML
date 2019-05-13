@@ -6,9 +6,9 @@ metadata:
     app: jupyter-notebook
 spec:
   volumes:
-    name: githubRepo
-    gitRepo:
-      repository: https://github.com/40660367/python_3
+    - name: githubRepo
+      gitRepo:
+        repository: https://github.com/40660367/python_3
   containers:
     - name: notebook
       image: 40660367/myub18_notebook
