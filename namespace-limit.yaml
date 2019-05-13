@@ -1,0 +1,17 @@
+apiVersion: v1
+kind: LimitRange
+metadata:
+  name: mem-min-max-demo-lr
+spec:
+  limits:
+  - max:
+      memory: 1Gi
+    min:
+      memory: 500Mi
+    type: Container
+
+#最小和最大内存限制的动因
+#作为一个集群管理员，您可能希望为 Pod 能够使用的内存数量施加限制。例如：
+#集群中每个节点拥有 2 GB 内存。您不希望任何 Pod 请求超过 2 GB 的内存，因为集群中没有节点能支持这个请求。
+#集群被生产部门和开发部门共享。 您希望生产负载最多使用 8 GB 的内存而将开发负载限制为 512 MB。
+#这种情况下，您可以为生产环境和开发环境创建单独的 namespace，并对每个 namespace 应用内存限制。
