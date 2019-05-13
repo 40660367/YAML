@@ -1,3 +1,5 @@
+#k8s 官网安装
+
 apt-get update && apt-get install -y apt-transport-https curl
 curl https://packages.cloud.google.com/apt/doc/apt-key.gpg | apt-key add -
 cat <<EOF >/etc/apt/sources.list.d/kubernetes.list
@@ -9,3 +11,17 @@ apt-mark hold kubelet kubeadm kubectl
 
 apt install docker.io -y
 kubeadm init --apiserver-advertise-address (hostname -i) --pod-network-cidr=10.244.0.0/16
+
+#阿里云的源安装
+#https://blog.csdn.net/weixin_44256791/article/details/85254859
+apt-get update && apt-get install -y apt-transport-https curl
+curl https://mirrors.aliyun.com/kubernetes/apt/doc/apt-key.gpg | apt-key add -
+cat </etc/apt/sources.list.d/kubernetes.list
+deb https://mirrors.aliyun.com/kubernetes/apt/ kubernetes-xenial main
+EOF
+apt-get update
+apt-get install -y kubelet kubeadm kubectl
+
+
+#安装后出现问题
+Warning  FailedCreatePodSandBox  37s (x63 over 153m)    kubelet, i52300  Failed create pod sandbox: rpc error: code = Unknown desc = failed to get sandbox image "k8s.gcr.io/pause:3.1": failed to pull image "k8s.gcr.io/pause:3.1": failed to resolve image "k8s.gcr.io/pause:3.1": no available registry endpoint: failed to do request: Head https://k8s.gcr.io/v2/pause/manifests/3.1: dial tcp [2404:6800:4008:c00::52]:443: i/o timeout
