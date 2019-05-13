@@ -10,7 +10,7 @@ spec:
     - name: stress-container
       image: ikubernetes/stress-ng
       command: ['/usr/bin/stress-ng']
-      args: ['--cpu 1','--metrics-brief']
+      args: ['-c 1','--metrics-brief']
       resources:
         requests:
           cpu: 300m
