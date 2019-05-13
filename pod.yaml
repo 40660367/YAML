@@ -10,12 +10,12 @@ spec:
     args: [ "while true; do sleep 30; done;" ]
     resources:
       requests:
-        cpus:
+        cpu:
           100m
         memroy:
-          50mi
+          50Mi
       limits:
-        cpus:
+        cpu:
           200m
         memroy:
-          80mi
+          80Mi
