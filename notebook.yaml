@@ -5,23 +5,19 @@ metadata:
   labels:
     app: jupyter-notebook
 spec:
-  volumes:
-    - name: githubRepo
-      gitRepo:
-        repository: https://github.com/40660367/python_3
   containers:
     - name: notebook
       image: 40660367/myub18_notebook
       imagePullPolicy: IfNotPresent
       command: ['jupyter']
-      args: ['notebook','/root/','--allow-root','--ip=0.0.0.0']
+      args: ['notebook','~','--allow-root','--ip=0.0.0.0']
       ports:
         - containerPort: 8080
-      workingDir: '/~'
+      workingDir: '~'
       volumeMounts:
         - name: githubRepo
           readOnly: True
-          mountPath: /root/shareData
+          mountPath: ~/shareData
       resources:
         requests:
           cpu: 100m
@@ -29,6 +25,10 @@ spec:
         limits:
           cpu: 300m
           memroy: 800Mi
+  volumes:
+    - name: githubRepo
+      gitRepo:
+        repository: https://github.com/40660367/python_3
 ---
 apiVersion: v1
 kind: Service
