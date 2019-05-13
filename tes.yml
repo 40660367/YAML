@@ -1,0 +1,16 @@
+apiVersion: extensions/b1beta1
+kind: Deployment
+metadata:
+  name: david-book
+spec:
+  replicas: 1
+  template: 
+    metadata: 
+      labels: 
+        app: users-notebook
+    spec: 
+      containers: 
+        - name: david-notebook
+          images: 40660367/myub18_notebook
+          command:
+            - jupyter notebook --ip=0.0.0.0 --no-browser --allow-root

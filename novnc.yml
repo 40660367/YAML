@@ -1,0 +1,25 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  labels:
+    run: novnc-deploy
+  name: novnc-deploy
+  namespace: default
+spec:
+  selector:
+    matchLabels:
+      run: novnc-deploy
+  template:
+    metadata:
+      labels:
+        run: novnc-deploy
+    spec:
+      containers:
+      - image: zhangcheng0111/ubuntu-untiy-novnc
+        imagePullPolicy: Always
+        name: novnc-deploy
+        ports:
+        - containerPort: 6379
+          protocol: TCP
+        - containerPort: 22
+          protocol: TCP
