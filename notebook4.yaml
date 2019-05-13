@@ -41,4 +41,4 @@ spec:
     app: jupyter-notebook
   ports: 
     - port: 8080
-      targetport: 8080
+      targetPort: 8080
