@@ -1,3 +1,4 @@
+#在某命名空间创建LimitRange,其命名空间下创建的pod如果没有指定其配额，就都会遵守LimitRange对象的配置了
 apiVersion: v1
 kind: LimitRange
 metadata:
