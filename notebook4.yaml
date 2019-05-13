@@ -10,10 +10,9 @@ spec:
       image: 40660367/myub18_notebook
       imagePullPolicy: IfNotPresent
       command: ['jupyter']
-      args: ['notebook','~','--allow-root','--ip=0.0.0.0']
+      args: ['notebook','--allow-root','--ip=0.0.0.0']
       ports:
         - containerPort: 8080
-      workingDir: '/root/'
       volumeMounts:
         - name: cache-volume
           readOnly: True
