@@ -16,10 +16,10 @@ spec:
       volumeMounts:
         - name: shared-volume
           readOnly: True
-          mountPath: /root/shareData
+          mountPath: /root/sharedData-read-only
         - name: temp-volume
           readOnly: False
-          mountPath: /root/exercise
+          mountPath: /root/temp-volumes
       workingDir: /root/
       resources:
         requests:
