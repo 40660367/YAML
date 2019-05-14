@@ -12,7 +12,7 @@ spec:
       command: ['jupyter']
       args: ['notebook','--allow-root','--ip=0.0.0.0']
       ports:
-        - containerPort: 8080
+        - containerPort: 8888
       volumeMounts:
         - name: cache-volume
           readOnly: True
@@ -40,4 +40,4 @@ spec:
     app: jupyter-notebook
   ports: 
     - port: 8080
-      targetPort: 8080
+      targetPort: 8888
