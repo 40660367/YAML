@@ -17,6 +17,10 @@ spec:
         - name: shared-volume
           readOnly: True
           mountPath: /root/shareData
+        - name: temp-volume
+          readOnly: False
+          mountPath: /root/exercise
+      workingDir: /root/
       resources:
         requests:
           cpu: 100m
@@ -28,6 +32,10 @@ spec:
    - name: shared-volume
      hostPath: 
        path: /root/machine-learning
+   - name: temp-volume
+     emptyDir:
+       medium: Memory
+       sizeLimit: 1Gi
 ---
 apiVersion: v1
 kind: Service
