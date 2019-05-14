@@ -10,13 +10,13 @@ spec:
       image: 40660367/myub18_notebook
       imagePullPolicy: IfNotPresent
       command: ['jupyter']
-      args: ['notebook','--allow-root','--ip=0.0.0.0']
+      args: ['notebook','/root/','--allow-root','--ip=0.0.0.0']
       ports:
         - containerPort: 8888
       volumeMounts:
-        - name: cache-volume
+        - name: shared-volume
           readOnly: True
-          mountPath: ~/shareData
+          mountPath: /root/shareData
       resources:
         requests:
           cpu: 100m
@@ -25,8 +25,9 @@ spec:
           cpu: 300m
           memory: 800Mi
   volumes:
-   - name: cache-volume
-     emptyDir: {}
+   - name: shared-volume
+     hostPath: 
+       path: /root/machine-learning
 ---
 apiVersion: v1
 kind: Service
