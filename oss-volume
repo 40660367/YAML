@@ -1,0 +1,20 @@
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: pv-oss
+  labels:
+    alicloud-pvname: freeai
+spec:
+  capacity:
+    storage: 1Gi
+  accessModes:
+    - ReadWriteMany
+  storageClassName: oss
+  flexVolume:
+    driver: "alicloud/oss"
+    options:
+      bucket: "docker"
+      url: "oss-cn-hangzhou.aliyuncs.com"
+      akId: "***"
+      akSecret: "***"
+      otherOpts: "-o max_stat_cache_size=0 -o allow_other"
