@@ -1,4 +1,3 @@
-#静态供给
 kind: PersistentVolume
 apiVersion: v1
 metadata:
