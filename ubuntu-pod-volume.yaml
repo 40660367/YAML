@@ -31,13 +31,14 @@ metadata:
   name: ubuntu-pod
 spec:
   volumes:
+    name: pvc1
     persistentVolumeClaim: 
       claimName: ubuntu-pv-claim
   containers:
   - image: ubuntu
     name: ubuntu
     volumeMounts:
-      name: ubuntu-pv-claim
+      name: pvc1
       mountPath: /mnt/data
     command: [ "/bin/bash", "-c", "--" ]
     args: [ "while true; do sleep 30; done;" ]
