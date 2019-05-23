@@ -34,12 +34,17 @@ spec:
     - name: pvc1
       persistentVolumeClaim: 
         claimName: ubuntu-pv-claim
+     - name: git1
+       gitRepo:
+         repository: https://github.com/40660367/YAML.git
   containers:
   - image: ubuntu
     name: ubuntu
     volumeMounts:
       - name: pvc1
         mountPath: /mnt/data
+      - name: git1
+        mountPath: /mnt/github
     command: [ "/bin/bash", "-c", "--" ]
     args: [ "while true; do sleep 30; done;" ]
     resources:
