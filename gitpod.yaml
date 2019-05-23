@@ -11,8 +11,6 @@ spec:
   - image: ubuntu
     name: ubuntu
     volumeMounts:
-      - name: pvc1
-        mountPath: /mnt/data
       - name: git1
         mountPath: /mnt/github
     command: [ "/bin/bash", "-c", "--" ]
