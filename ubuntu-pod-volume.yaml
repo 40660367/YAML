@@ -1,3 +1,18 @@
+kind: PersistentVolume
+apiVersion: v1
+metadata:
+  name: pv-volume
+  labels:
+    type: local
+spec:
+  storageClassName: manual
+  capacity:
+    storage: 20Gi
+  accessModes:
+    - ReadWriteOnce
+  hostPath:
+    path: "/pod/ubuntu-data"
+---
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
@@ -15,9 +30,15 @@ kind: Pod
 metadata:
   name: ubuntu-pod
 spec:
+  volumes:
+    persistentVolumeClaim: 
+      claimName: ubuntu-pv-claim
   containers:
   - image: ubuntu
     name: ubuntu
+    volumeMounts:
+      name: ubuntu-pv-claim
+      mountPath: /mnt/data
     command: [ "/bin/bash", "-c", "--" ]
     args: [ "while true; do sleep 30; done;" ]
     resources:
@@ -31,3 +52,4 @@ spec:
           200m
         memory:
           80Mi
+    
