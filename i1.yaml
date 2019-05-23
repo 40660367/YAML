@@ -1,0 +1,30 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: ubuntu-pod
+spec:
+  volumes:
+     - name: git1
+       gitRepo:
+         repository: https://github.com/40660367/YAML.git
+  containers:
+  - image: ubuntu
+    name: ubuntu
+    volumeMounts:
+      - name: pvc1
+        mountPath: /mnt/data
+      - name: git1
+        mountPath: /mnt/github
+    command: [ "/bin/bash", "-c", "--" ]
+    args: [ "while true; do sleep 30; done;" ]
+    resources:
+      requests:
+        cpu:
+          100m
+        memory:
+          50Mi
+      limits:
+        cpu:
+          200m
+        memory:
+          80Mi
