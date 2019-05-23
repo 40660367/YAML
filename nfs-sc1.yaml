@@ -3,3 +3,15 @@ kind: StorageClass
 metadata:
   name: nfs-storageclass
 provisioner: nfs-provisioner
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: nfs-pvc
+spec:
+  accessModes:
+  - ReadWriteMany
+  storageClassName： nfs-storageclass
+  resources:
+    requests:
+      storage: 1Gi
