@@ -29,7 +29,7 @@ spec:
               readOnly: {{ .Values.extraTempVolumes.readOnly }}
               mountPath: /home/temp-volumes
             - name: nas-pvc
-              mountPath: "/home/persistence-volume"
+              mountPath: /home/persistence-volume
           resources:
             requests:
               cpu: {{ .Values.resources.requests.cpu }}
