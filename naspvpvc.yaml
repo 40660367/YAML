@@ -1,0 +1,27 @@
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: nas
+spec:
+  capacity:
+    storage: 1Gi
+  accessModes:
+    - ReadWriteMany
+  mountOptions:
+    - noresvport
+    - nfsvers=3
+  persistentVolumeReclaimPolicy: Retain
+  nfs:
+    path: "/{{ .Release.Name }}"
+    server: 8a0324894e-rni84.cn-huhehaote.nas.aliyuncs.com
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+     name: nasclaim
+spec:
+     accessModes:
+       - ReadWriteMany
+     resources:
+       requests:
+         storage: 1Gi
