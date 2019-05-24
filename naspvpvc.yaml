@@ -12,7 +12,7 @@ spec:
     - nfsvers=3
   persistentVolumeReclaimPolicy: Retain
   nfs:
-    path: "/{{ .Release.Name }}"
+    path: "/"
     server: 8a0324894e-rni84.cn-huhehaote.nas.aliyuncs.com
 ---
 apiVersion: v1
