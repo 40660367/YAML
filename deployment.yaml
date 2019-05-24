@@ -1,0 +1,50 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: "{{ .Release.Name }}-deploy"
+  labels:
+    run: "{{ .Release.Name }}-deploy"
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      run: "{{ .Release.Name }}-deploy"
+  template:
+    metadata:
+      labels:
+        run: "{{ .Release.Name }}-deploy"
+    spec:
+      containers:
+        - name: "{{ .Release.Name }}-container"
+          image: {{ .Values.images.image}}:{{ .Values.images.imageTag}}
+          imagePullPolicy: {{ .Values.images.imagePullPolicy }}
+          command: ['jupyter']
+          args: ['notebook','/home/','--allow-root','--ip=0.0.0.0']
+          ports:
+            - containerPort: {{ .Values.containers.containerPort }}
+          workingDir: {{ .Values.containers.workingDir }}
+
+          volumeMounts:
+            - name: {{ .Values.extraTempVolumes.name }}
+              readOnly: {{ .Values.extraTempVolumes.readOnly }}
+              mountPath: /home/temp-volumes
+            - name: nas-pvc
+              mountPath: "/home/persistence-volume"
+          resources:
+            requests:
+              cpu: {{ .Values.resources.requests.cpu }}
+              memory: {{ .Values.resources.requests.memory }}
+            limits:
+              cpu: {{ .Values.resources.limits.cpu }}
+              memory: {{ .Values.resources.limits.memory }}
+      volumes:
+      - name:  {{ .Values.extraSharedVolume.name }}
+        hostPath:
+          path: {{ .Values.extraSharedVolume.hostPath }}
+      - name: {{ .Values.extraTempVolumes.name }}
+        emptyDir:
+          medium: {{ .Values.extraTempVolumes.medium }}
+          sizeLimit: {{ .Values.extraTempVolumes.sizeLimit }}
+      - name: nas-pvc
+        persistentVolumeClaim:
+          claimName: nasclaim
