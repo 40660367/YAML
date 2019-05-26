@@ -33,8 +33,8 @@ spec:
         imagePullPolicy: IfNotPresent
         command
         - /metrics-server
+        - --kubelet-preferred-address-types=InternalIP
         - --kubelet-insecure-tls
-        - --kubelet-preferred-address-types=InternalIp
         volumeMounts:
         - name: tmp-dir
           mountPath: /tmp
