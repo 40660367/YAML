@@ -1,3 +1,4 @@
+---
 apiVersion: v1
 kind: ServiceAccount
 metadata:
@@ -22,18 +23,18 @@ spec:
         k8s-app: metrics-server
     spec:
       serviceAccountName: metrics-server
+      volumes:
+      # mount in tmp so we can safely use from-scratch images and/or read-only containers
+      - name: tmp-dir
+        emptyDir: {}
       containers:
       - name: metrics-server
-        image: mirrorgooglecontainers/metrics-server-amd64:v0.2.1
-        imagePullPolicy: Always
-        volumeMounts:
-        - mountPath: /opt/kubernetes/ssl
-          name: ca-ssl
-        command:
+        image: registry.cn-hangzhou.aliyuncs.com/google_containers/metrics-server-amd64:v0.3.3
+        imagePullPolicy: IfNotPresent
+        command
         - /metrics-server
-        - --source=kubernetes.summary_api:''
-        - --requestheader-client-ca-file=/opt/kubernetes/ssl/ca.pem
-      volumes:
-       - name: ca-ssl
-         hostPath:
-          path: /opt/kubernetes/ssl
+        - --kubelet-insecure-tls
+        - --kubelet-preferred-address-types=InternalIp
+        volumeMounts:
+        - name: tmp-dir
+          mountPath: /tmp
