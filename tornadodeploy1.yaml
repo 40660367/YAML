@@ -57,9 +57,8 @@ spec:
     spec:
       containers:
       - image: ccr.ccs.tencentyun.com/david/tornado:v8
-        imagePullPolicy: Always
+        imagePullPolicy: IfNotPresent
         name: tornado
-        resources: {}
         terminationMessagePath: /dev/termination-log
         terminationMessagePolicy: File
         volumeMounts:
@@ -78,25 +77,6 @@ spec:
       schedulerName: default-scheduler
       securityContext: {}
       terminationGracePeriodSeconds: 30
-status:
-  conditions:
-  - lastTransitionTime: "2019-05-29T07:56:31Z"
-    lastUpdateTime: "2019-05-29T07:56:31Z"
-    message: Deployment does not have minimum availability.
-    reason: MinimumReplicasUnavailable
-    status: "False"
-    type: Available
-  - lastTransitionTime: "2019-05-29T07:56:31Z"
-    lastUpdateTime: "2019-05-29T07:56:31Z"
-    message: ReplicaSet "tornado-69cb5b9cb7" is progressing.
-    reason: ReplicaSetUpdated
-    status: "True"
-    type: Progressing
-  observedGeneration: 1
-  replicas: 1
-  unavailableReplicas: 1
-  updatedReplicas: 1
-
 
 ---  
 apiVersion: v1
