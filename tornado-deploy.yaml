@@ -29,7 +29,7 @@ apiVersion: extensions/v1beta1
 kind: Deployment
 metadata:
   labels:
-    run: tornado
+    run: tornado-server
   name: tornado
   namespace: default
 spec:
@@ -45,7 +45,7 @@ spec:
   template:
     metadata:
       labels:
-        run: tornado
+        run: tornado-server
     spec:
       containers:
       - image: ccr.ccs.tencentyun.com/david/tornado:v8
