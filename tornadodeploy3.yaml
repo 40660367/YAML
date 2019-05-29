@@ -56,7 +56,7 @@ spec:
         run: tornado
     spec:
       containers:
-      - image: ccr.ccs.tencentyun.com/david/tornado:v8
+      - image: ccr.ccs.tencentyun.com/david/tornado:v9
         imagePullPolicy: IfNotPresent
         name: tornado
         terminationMessagePath: /dev/termination-log
