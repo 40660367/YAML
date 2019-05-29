@@ -28,12 +28,19 @@ spec:
 apiVersion: extensions/v1beta1
 kind: Deployment
 metadata:
+  annotations:
+    deployment.kubernetes.io/revision: "1"
+  generation: 1
   labels:
-    run: tornado-server
+    run: tornado
   name: tornado
   namespace: default
+  selfLink: /apis/extensions/v1beta1/namespaces/default/deployments/tornado
+  uid: 45a3f916-81e7-11e9-bdd3-00163e03d202
 spec:
+  progressDeadlineSeconds: 600
   replicas: 1
+  revisionHistoryLimit: 10
   selector:
     matchLabels:
       run: tornado
@@ -43,10 +50,14 @@ spec:
       maxUnavailable: 25%
     type: RollingUpdate
   template:
+    metadata:
+      creationTimestamp: null
+      labels:
+        run: tornado
     spec:
       containers:
       - image: ccr.ccs.tencentyun.com/david/tornado:v8
-        imagePullPolicy: IfNotPresent
+        imagePullPolicy: Always
         name: tornado
         resources: {}
         terminationMessagePath: /dev/termination-log
@@ -57,12 +68,37 @@ spec:
         resources: 
           limits:
             cpu: 500m
-            memory: 500Mi
+            memory: 500Mi                    
       volumes:
       - name: tornado-mnt-nas-volume
         persistentVolumeClaim:
           claimName: tornado-mnt-nas-pvc
----
+      dnsPolicy: ClusterFirst
+      restartPolicy: Always
+      schedulerName: default-scheduler
+      securityContext: {}
+      terminationGracePeriodSeconds: 30
+status:
+  conditions:
+  - lastTransitionTime: "2019-05-29T07:56:31Z"
+    lastUpdateTime: "2019-05-29T07:56:31Z"
+    message: Deployment does not have minimum availability.
+    reason: MinimumReplicasUnavailable
+    status: "False"
+    type: Available
+  - lastTransitionTime: "2019-05-29T07:56:31Z"
+    lastUpdateTime: "2019-05-29T07:56:31Z"
+    message: ReplicaSet "tornado-69cb5b9cb7" is progressing.
+    reason: ReplicaSetUpdated
+    status: "True"
+    type: Progressing
+  observedGeneration: 1
+  replicas: 1
+  unavailableReplicas: 1
+  updatedReplicas: 1
+
+
+---  
 apiVersion: v1
 kind: Service
 metadata:
