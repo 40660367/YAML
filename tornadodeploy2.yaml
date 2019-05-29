@@ -88,7 +88,7 @@ metadata:
 spec:
   type: NodePort
   selector:
-    run: tornado-server
+    run: tornado
   ports:
     - port: 80
       targetPort: 9100
