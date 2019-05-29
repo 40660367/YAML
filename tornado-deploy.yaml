@@ -31,6 +31,7 @@ metadata:
   namespace: default
   labels:
     app: tornado
+    run: tornado-server
 spec:
   template:
     metadata:
@@ -55,3 +56,16 @@ spec:
                  cpu: 500m
                  memory: 500Mi
 ---
+apiVersion: v1
+kind: Service
+metadata:
+  name: "tornado"
+  labels:
+    app: tornado
+spec:
+  type: Node
+  selector:
+    run: tornado-server
+  ports:
+    - port: 80
+      targetPort: 9100
