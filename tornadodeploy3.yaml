@@ -28,15 +28,11 @@ spec:
 apiVersion: extensions/v1beta1
 kind: Deployment
 metadata:
-  annotations:
-    deployment.kubernetes.io/revision: "1"
   generation: 1
   labels:
     run: tornado
   name: tornado
   namespace: default
-  selfLink: /apis/extensions/v1beta1/namespaces/default/deployments/tornado
-  uid: 45a3f916-81e7-11e9-bdd3-00163e03d202
 spec:
   progressDeadlineSeconds: 600
   replicas: 1
@@ -56,7 +52,7 @@ spec:
         run: tornado
     spec:
       containers:
-      - image: ccr.ccs.tencentyun.com/david/tornado:v9
+      - image: ccr.ccs.tencentyun.com/david/tornado:v10
         imagePullPolicy: IfNotPresent
         name: tornado
         terminationMessagePath: /dev/termination-log
@@ -74,10 +70,8 @@ spec:
           claimName: tornado-mnt-nas-pvc
       dnsPolicy: ClusterFirst
       restartPolicy: Always
-      schedulerName: default-scheduler
       securityContext: {}
       terminationGracePeriodSeconds: 30
-
 ---  
 apiVersion: v1
 kind: Service
