@@ -1,0 +1,57 @@
+kind: PersistentVolume
+apiVersion: v1
+metadata:
+  name: tornado-mnt-nas-pv
+  labels:
+    type: local
+spec:
+  storageClassName: manual
+  capacity:
+    storage: 100Gi
+  accessModes:
+    - ReadWriteOnce
+  hostPath:
+    path: "/mnt/"
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: tornado-mnt-nas-pvc
+spec:
+  storageClassName: manual
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 100Gi
+---
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  namespace: default
+  labels:
+    app: tornado
+spec:
+  template:
+    metadata:
+      namespace: default
+      labels:
+        app: tornado
+       spec:
+         serviceAccountName: admin
+         volumes:
+         - name: tornado-mnt-nas-volume
+           persistentVolumeClaim: 
+             claimName: tornado-mnt-nas-pvc
+         containers:
+           - name: tornado-server
+             image: ccr.ccs.tencentyun.com/david/tornado:v8
+             magePullPolicy: IfNotPresent
+             volumeMounts:
+             - name: tornado-mnt-nas-volume
+               mountPath: /mnt/
+             resources: 
+               limits:
+                 cpu: 500m
+                 memory: 500Mi
+---
