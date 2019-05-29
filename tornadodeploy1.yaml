@@ -43,9 +43,6 @@ spec:
       maxUnavailable: 25%
     type: RollingUpdate
   template:
-    metadata:
-      labels:
-        run: tornado-server
     spec:
       containers:
       - image: ccr.ccs.tencentyun.com/david/tornado:v8
