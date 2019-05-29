@@ -25,36 +25,40 @@ spec:
     requests:
       storage: 100Gi
 ---
-apiVersion: extensions/v1beta1
+apiVersion: apps/v1 # for versions before 1.9.0 use apps/v1beta2
 kind: Deployment
 metadata:
-  namespace: default
-  labels:
-    app: tornado
-    run: tornado-server
+  name: tornado
 spec:
+  selector:
+    matchLabels:
+      app: tornado-server
+  strategy:
+    type: Recreate
   template:
     metadata:
-      namespace: default
       labels:
-        app: tornado
-       spec:
-         serviceAccountName: admin
-         volumes:
-         - name: tornado-mnt-nas-volume
-           persistentVolumeClaim: 
-             claimName: tornado-mnt-nas-pvc
-         containers:
-           - name: tornado-server
-             image: ccr.ccs.tencentyun.com/david/tornado:v8
-             magePullPolicy: IfNotPresent
-             volumeMounts:
-             - name: tornado-mnt-nas-volume
-               mountPath: /mnt/
-             resources: 
-               limits:
-                 cpu: 500m
-                 memory: 500Mi
+        app: tornado-server
+    spec:
+      serviceAccountName: system:admin
+      containers:
+      - image: ccr.ccs.tencentyun.com/david/tornado:v8
+        name: tornado-server-container
+        env:
+          # Use secret in real usage
+        - name: MYSQL_PASSWORD
+          value: password
+        volumeMounts:
+        - name: tornado-mnt-nas-volume
+          mountPath: /mnt
+        resources: 
+          limits:
+            cpu: 500m
+            memory: 500Mi
+    volumes:
+    - name: tornado-mnt-nas-volume
+     persistentVolumeClaim: 
+       claimName: tornado-mnt-nas-pvc
 ---
 apiVersion: v1
 kind: Service
