@@ -36,7 +36,7 @@ spec:
   replicas: 1
   selector:
     matchLabels:
-      run: tornado  
+      run: tornado
   strategy:
     rollingUpdate:
       maxSurge: 25%
@@ -44,6 +44,8 @@ spec:
     type: RollingUpdate
   template:
     metadata:
+      labels:
+        run: tornado-server
     spec:
       containers:
       - image: ccr.ccs.tencentyun.com/david/tornado:v8
