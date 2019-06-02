@@ -52,7 +52,7 @@ spec:
         run: tornado
     spec:
       containers:
-      - image: ccr.ccs.tencentyun.com/freaihub/tornado:v10
+      - image: ccr.ccs.tencentyun.com/freeaihub/tornado:v10
         imagePullPolicy: IfNotPresent
         name: tornado
         terminationMessagePath: /dev/termination-log
