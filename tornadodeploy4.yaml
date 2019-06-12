@@ -77,6 +77,7 @@ spec:
       terminationGracePeriodSeconds: 30
 ---  
 apiVersion: v1
+
 kind: Service
 metadata:
   name: "tornado"
@@ -89,3 +90,4 @@ spec:
   ports:
     - port: 80
       targetPort: 9100
+  sessionAffinity: ClientIP
